@@ -3,7 +3,7 @@ import java.awt.*;
 class Ship extends SpaceObject{
     private int xspeed;
     private int yspeed;
-
+    private int angle;
     private int x1 =200;
     private int x2 = 210;
     private int x3 = 205;
@@ -16,6 +16,7 @@ class Ship extends SpaceObject{
         super(0,0);
         xspeed = 0;
         yspeed = 0;
+        angle = 0;
         int x[] = {x1, x2, x3};
         int y[] = {y1, y2, y3};
         object = new Polygon(x, y, 3);
@@ -71,35 +72,22 @@ class Ship extends SpaceObject{
         window.setColor(Color.WHITE);
         window.fillPolygon(object);
     }
-    public void moveRightLeft(){
+    public void move(){
         setX1(getX1() + xspeed);
         setX2(getX2() + xspeed);
-        setX2(getX2() + xspeed);
+        setX3(getX3() + xspeed);
+        setY1(getY1() + xspeed);
+        setY2(getY2() + xspeed);
+        setY3(getY3() + xspeed);
     }
-    public void moveUpDown(){
-        setY1(getY1()+yspeed);
-        setY2(getY2()+yspeed);
-        setY3(getY3()+yspeed);
-    }
-    public void addxspeed(){
-        xspeed+=10;
-    }
-    public void subxspeed(){
-        xspeed-=10;
-    }
-    public void addyspeed(){
-        yspeed+=10;
-    }
-    public void subyspeed(){
-        yspeed-=10;
+    public void addSpeed(){
+        xspeed+=Math.COS(angle)*10;
+        yspeed+=Math.SIN(angle)*10;
     }
     public int getXspeed(){
         return xspeed;
     }
     public int getYspeed(){
         return yspeed;
-    }
-    public void changeSpeed(){
-        yspeed = yspeed*-1;
     }
 }
