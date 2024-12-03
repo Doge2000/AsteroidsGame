@@ -17,7 +17,9 @@ abstract class SpaceObject {
     public void SetPolygon(Polygon obj){
         object = obj;
     }
-    
+    public void getPolygon(){
+        return object;
+    }
     public int getX(){
         return x;
     }
@@ -31,8 +33,8 @@ abstract class SpaceObject {
         this.y = y;
     }
 
-   public boolean intersects(Polygon other){
-       Area one = new Area(other);
+   public boolean intersects(SpaceObject other){
+       Area one = new Area(other.getPolygon());
         Area two = new Area(object);
        one.intersects(two);
         return !one.isEmpty();
