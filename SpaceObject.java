@@ -34,7 +34,7 @@ abstract class SpaceObject {
    public boolean intersects(Polygon other){
        Area one = new Area(other);
         Area two = new Area(object);
-       one = intersects(two)
+       one.intersects(two);
         return !one.isEmpty();
 
    }
