@@ -50,7 +50,9 @@ class game extends JPanel implements Runnable, KeyListener
         {
             testship.goLeftRight();
             testship.goUpDown();
+            testship.dampener();
             testship.keepinBounds(getWidth(), getHeight());
+
 
 
         }
@@ -70,7 +72,9 @@ class game extends JPanel implements Runnable, KeyListener
 
         }
         if(keys[3]){ // Up Arrow
-            testship.changespeed();
+            if(testship.getSpeed()<0.01 || testship.getSpeed()>-0.01) {
+                testship.changespeed();
+            }
             keys[3] = false;
         }
         if(keys[4]){

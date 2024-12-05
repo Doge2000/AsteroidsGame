@@ -4,10 +4,11 @@ import java.awt.geom.AffineTransform;
 
 class Ship extends SpaceObject
 {
-    private int speed;
+    private double speed;
     private double xspeed;
     private double yspeed;
     private double angle;
+
 
 
 
@@ -18,8 +19,8 @@ class Ship extends SpaceObject
         //super call must be first
         super(ex,wy,wd,ht);
         speed = sp;
-        xspeed = (int) Math.cos(Math.toRadians(angle-90));
-        yspeed = (int) Math.sin(Math.toRadians(angle-90));
+        xspeed = 0;
+        yspeed = 0;
         angle = 0;
     }
     public void rotateLeft(){
@@ -41,12 +42,30 @@ class Ship extends SpaceObject
 
     }
 
+    public double getXspeed() {
+        return xspeed;
+    }
+
+    public double getYspeed() {
+        return yspeed;
+    }
+    public double getSpeed(){
+        return Math.sqrt(Math.pow(xspeed,2)+Math.pow(yspeed,2));
+    }
 
     public void changespeed(){
-        double x =  Math.cos(Math.toRadians(angle-90));
-        double y =  Math.sin(Math.toRadians(angle-90));
-        xspeed+=x;
-        yspeed+=y;
+
+            double x = Math.cos(Math.toRadians(angle - 90)) * 0.5;
+            double y = Math.sin(Math.toRadians(angle - 90)) * 0.5;
+            xspeed += x;
+            yspeed += y;
+            speed = Math.sqrt(Math.pow(xspeed, 2) + Math.pow(yspeed,2));
+
+
+
+    }
+    public void dampener(){
+        speed*=0.5;
     }
 
     public void stop(){
@@ -57,24 +76,24 @@ class Ship extends SpaceObject
     public void keepinBounds(int w, int h){
 
 
-        if(getnX()>w-getW()){
-            setX(w-getW());
-            xspeed=xspeed*-1;
+        if(getnX()>w){
+            setX(-getW());
+
 
         }
-        else if(getnX()<0){
-            setX(0);
-            xspeed=xspeed*-1;
+        else if(getnX()<-getW()){
+            setX(w+getW());
+
 
         }
-        if(getnY()>h-getH()){
-            setY(h-getH());
-            yspeed=yspeed*-1;
+        if(getnY()>h){
+            setY(-getH());
+
         }
 
-        else if(getnY()<0){
-            setY(0);
-            yspeed=yspeed*-1;
+        else if(getnY()<-getH()){
+            setY(h);
+
         }
     }
 
