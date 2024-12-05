@@ -1,93 +1,97 @@
+import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
-class Ship extends SpaceObject{
+class Ship extends SpaceObject
+{
+    private int speed;
     private int xspeed;
     private int yspeed;
-    private int angle;
-    private int x1 =200;
-    private int x2 = 210;
-    private int x3 = 205;
-    private int y1 = 30;
-    private int y2 = 30;
-    private int y3 = 40;
-    Polygon object;
+    private double angle;
 
-    public Ship(){
-        super(0,0);
-        xspeed = 0;
-        yspeed = 0;
+    public Ship( int ex, int wy, int wd, int ht, int sp)
+    {
+        //write the code for the Paddle constructor
+        //must have a super constructor call
+        //super call must be first
+        super(ex,wy,wd,ht);
+        speed = sp;
+        xspeed = (int) Math.cos(Math.toRadians(angle-90));
+        yspeed = (int) Math.sin(Math.toRadians(angle-90));
         angle = 0;
-        int x[] = {x1, x2, x3};
-        int y[] = {y1, y2, y3};
-        object = new Polygon(x, y, 3);
-
     }
-    public int getX1(){
-        return x1;
+    public void rotateLeft(){
+        angle -=10;
     }
-    public int getX2(){
-        return x2;
-    }
-    public int getX3(){
-        return x3;
+    public void rotateRight(){
+        angle += 10;
     }
 
-    public int getY1() {
-        return y1;
+    public void goLeftRight()
+    {
+        setX(getX() + xspeed); // because a paddle is a block it has the setX and getX methods
+
+        // add the code to keep the paddle from going off the screen to the left.
     }
 
-    public int getY2() {
-        return y2;
+    public void goUpDown(){
+        setY(getY()+yspeed);
+
     }
 
-    public int getY3() {
-        return y3;
+
+    public void changespeed(){
+        int x = (int) Math.ceil(Math.cos(Math.toRadians(angle-90)) * 2);
+        int y = (int) Math.ceil((Math.sin(Math.toRadians(angle-90)) * 2));
+        xspeed+=x;
+        yspeed+=y;
     }
 
-    public void setX1(int x1) {
-        this.x1 = x1;
+    public void stop(){
+        speed = 0;
+
     }
 
-    public void setX2(int x2) {
-        this.x2 = x2;
+    public void keepinBounds(int w, int h){
+
+
+        if(getX()>w-getW()){
+            setX(w-getW());
+            xspeed=xspeed*-1;
+
+        }
+        else if(getX()<0){
+            setX(0);
+            xspeed=xspeed*-1;
+
+        }
+        if(getY()>h-getH()){
+            setY(h-getH());
+            yspeed=yspeed*-1;
+        }
+
+        else if(getY()<0){
+            setY(0);
+            yspeed=yspeed*-1;
+        }
     }
 
-    public void setX3(int x3) {
-        this.x3 = x3;
+
+    public void paint( Graphics window )
+    {
+
+//        window.setColor(Color.BLACK);
+//        window.fillRect(getX(), getY(), getW(), getH());
+//        window.setColor(Color.BLACK);
+//        window.drawRect(getX(), getY(), getW(), getH());
+
+
+        //find and image for your paddle and put it here
+        Graphics2D g2 = (Graphics2D) window;
+        g2.rotate(Math.toRadians(angle), getX()+getW()/2, getY()+getH()/2);
+        Image img1 = Toolkit.getDefaultToolkit().getImage("ship.gif"); //use .gif or .png, you can choose the image
+        g2.drawImage(img1, getX(), getY(), getW(), getH(), this);
+
     }
 
-    public void setY1(int y1) {
-        this.y1 = y1;
-    }
-
-    public void setY2(int y2) {
-        this.y2 = y2;
-    }
-
-    public void setY3(int y3) {
-        this.y3 = y3;
-    }
-
-    public void paint(Graphics window){
-        window.setColor(Color.WHITE);
-        window.fillPolygon(object);
-    }
-    public void move(){
-        setX1(getX1() + xspeed);
-        setX2(getX2() + xspeed);
-        setX3(getX3() + xspeed);
-        setY1(getY1() + xspeed);
-        setY2(getY2() + xspeed);
-        setY3(getY3() + xspeed);
-    }
-    public void addSpeed(){
-        xspeed+=Math.COS(angle)*10;
-        yspeed+=Math.SIN(angle)*10;
-    }
-    public int getXspeed(){
-        return xspeed;
-    }
-    public int getYspeed(){
-        return yspeed;
-    }
 }

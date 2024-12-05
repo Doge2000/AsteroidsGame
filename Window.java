@@ -8,18 +8,18 @@ class Window extends JFrame
     private final int WIDTH = 820;
     private final int HEIGHT = 640;
 
+
+
+
     public Window()
     {
-        super("BreakOut");
+        super("game");
 
         setSize(WIDTH,HEIGHT);
 
         //use the ClassTester to test your classes
         //before you start to write the full game
         getContentPane().add( new game());
-
-        //uncomment this to make the game
-        // getContentPane().add( new BreakOut() );
 
         setVisible(true);
 
