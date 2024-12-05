@@ -65,7 +65,19 @@ class Ship extends SpaceObject
 
     }
     public void dampener(){
-        speed*=0.5;
+        if(xspeed > 0){
+            xspeed--;
+        }
+        else if(xspeed < 0){
+            xspeed--;
+        }
+        if(yspeed > 0){
+            yspeed--;
+        }
+        else if(yspeed < 0){
+            yspeed++;
+        }
+        
     }
 
     public void stop(){
