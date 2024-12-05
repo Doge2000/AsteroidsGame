@@ -15,7 +15,21 @@ Class Asteroid extends SpaceObject(){
   public int getAsteroidSize(){
     return size;
   }
-
+  public void keepInBounds(){
+    if(getX() > 840){
+      setX(-50);
+    }
+    else{
+      setX(870);
+    }
+    if(getY() > 650){
+      setY(-50)
+    }
+    else{
+      setY(690);
+    }
+  }
+  
   public void paint( Graphics window )
     {
         Graphics2D g2 = (Graphics2D) window;
