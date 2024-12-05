@@ -133,7 +133,7 @@ class game extends JPanel implements Runnable, KeyListener
         {
             while( true )
             {
-                Thread.sleep( 10 );
+                Thread.sleep( 5 );
                 repaint();
             }
         }

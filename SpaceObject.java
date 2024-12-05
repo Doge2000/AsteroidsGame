@@ -15,7 +15,8 @@ import javax.swing.*;
 //Jade Chen
 abstract class SpaceObject extends Canvas
 {
-    private int x, y, w, h; //these are instance variables
+    private double x, y;
+    private int w, h; //these are instance variables
 
     public SpaceObject()
     {
@@ -36,10 +37,10 @@ abstract class SpaceObject extends Canvas
 
     // All Blocks will have all of these set and get methods
     //these methods are complete
-    public int getX( ){ return x; }
-    public void setX( int ex ){ x = ex; }
-    public int getY( ){ return y; }
-    public void setY( int wy ){ y = wy; }
+    public double getnX( ){ return x; }
+    public void setX( double ex ){ x = ex; }
+    public double getnY( ){ return y; }
+    public void setY( double wy ){ y = wy; }
     public int getW(){ return w; }
     public int getH(){ return h; }
 
@@ -47,8 +48,8 @@ abstract class SpaceObject extends Canvas
     public boolean intersects( SpaceObject other)
     {
 
-        Rectangle block = new Rectangle(x,y,w,h);
-        Rectangle otherone = new Rectangle(other.x, other.y, other.w, other.h);
+        Rectangle block = new Rectangle((int) x,(int) y,w,h);
+        Rectangle otherone = new Rectangle((int) other.x, (int) other.y, other.w, other.h);
         if(block.intersects(otherone)){
             return true;
         }

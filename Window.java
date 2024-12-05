@@ -16,9 +16,6 @@ class Window extends JFrame
         super("game");
 
         setSize(WIDTH,HEIGHT);
-
-        //use the ClassTester to test your classes
-        //before you start to write the full game
         getContentPane().add( new game());
 
         setVisible(true);

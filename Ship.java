@@ -5,9 +5,11 @@ import java.awt.geom.AffineTransform;
 class Ship extends SpaceObject
 {
     private int speed;
-    private int xspeed;
-    private int yspeed;
+    private double xspeed;
+    private double yspeed;
     private double angle;
+
+
 
     public Ship( int ex, int wy, int wd, int ht, int sp)
     {
@@ -29,20 +31,20 @@ class Ship extends SpaceObject
 
     public void goLeftRight()
     {
-        setX(getX() + xspeed); // because a paddle is a block it has the setX and getX methods
+        setX(getnX() + xspeed); // because a paddle is a block it has the setX and getX methods
 
         // add the code to keep the paddle from going off the screen to the left.
     }
 
     public void goUpDown(){
-        setY(getY()+yspeed);
+        setY(getnY()+yspeed);
 
     }
 
 
     public void changespeed(){
-        int x = (int) Math.ceil(Math.cos(Math.toRadians(angle-90)) * 2);
-        int y = (int) Math.ceil((Math.sin(Math.toRadians(angle-90)) * 2));
+        double x =  Math.cos(Math.toRadians(angle-90));
+        double y =  Math.sin(Math.toRadians(angle-90));
         xspeed+=x;
         yspeed+=y;
     }
@@ -55,22 +57,22 @@ class Ship extends SpaceObject
     public void keepinBounds(int w, int h){
 
 
-        if(getX()>w-getW()){
+        if(getnX()>w-getW()){
             setX(w-getW());
             xspeed=xspeed*-1;
 
         }
-        else if(getX()<0){
+        else if(getnX()<0){
             setX(0);
             xspeed=xspeed*-1;
 
         }
-        if(getY()>h-getH()){
+        if(getnY()>h-getH()){
             setY(h-getH());
             yspeed=yspeed*-1;
         }
 
-        else if(getY()<0){
+        else if(getnY()<0){
             setY(0);
             yspeed=yspeed*-1;
         }
@@ -88,9 +90,9 @@ class Ship extends SpaceObject
 
         //find and image for your paddle and put it here
         Graphics2D g2 = (Graphics2D) window;
-        g2.rotate(Math.toRadians(angle), getX()+getW()/2, getY()+getH()/2);
+        g2.rotate(Math.toRadians(angle), getnX()+getW()/2, getnY()+getH()/2);
         Image img1 = Toolkit.getDefaultToolkit().getImage("ship.gif"); //use .gif or .png, you can choose the image
-        g2.drawImage(img1, getX(), getY(), getW(), getH(), this);
+        g2.drawImage(img1, (int) getnX(), (int) getnY(), getW(), getH(), this);
 
     }
 
