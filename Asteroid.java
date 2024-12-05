@@ -1,6 +1,6 @@
 import java.awt.*;
 
-Class Asteroid extends SpaceObject(){
+class Asteroid extends SpaceObject {
   private int xspeed;
   private int yspeed;
   private int size;
@@ -15,18 +15,34 @@ Class Asteroid extends SpaceObject(){
   public int getAsteroidSize(){
     return size;
   }
-  public void keepInBounds(){
-    if(getX() > 840){
-      setX(-50);
+  public void goLeftRight()
+  {
+    setX(getnX() + xspeed);
+  }
+
+  public void goUpDown(){
+    setY(getnY()+yspeed);
+
+  }
+  public void keepInBounds(int w, int h){
+    if(getnX()>w){
+      setX(-getW());
+
+
     }
-    else{
-      setX(870);
+    else if(getnX()<-getW()){
+      setX(w);
+
+
     }
-    if(getY() > 650){
-      setY(-50)
+    if(getnY()>h){
+      setY(-getH());
+
     }
-    else{
-      setY(690);
+
+    else if(getnY()<-getH()){
+      setY(h);
+
     }
   }
   
@@ -34,7 +50,7 @@ Class Asteroid extends SpaceObject(){
     {
         Graphics2D g2 = (Graphics2D) window;
         Image img1 = Toolkit.getDefaultToolkit().getImage("Asteroid.png"); //use .gif or .png, you can choose the image
-        g2.drawImage(img1, getX(), getY(), getW(), getH(), this);
+        g2.drawImage(img1, (int) getnX(), (int) getnY(), getW(), getH(), this);
     }
 
 

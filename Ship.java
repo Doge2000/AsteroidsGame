@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.util.Timer;
+import java.util.TimerTask;
 
 class Ship extends SpaceObject
 {
@@ -8,6 +10,7 @@ class Ship extends SpaceObject
     private double xspeed;
     private double yspeed;
     private double angle;
+
 
 
 
@@ -22,6 +25,7 @@ class Ship extends SpaceObject
         xspeed = 0;
         yspeed = 0;
         angle = 0;
+
     }
     public void rotateLeft(){
         angle -=10;
@@ -64,20 +68,26 @@ class Ship extends SpaceObject
 
 
     }
+
     public void dampener(){
-        if(xspeed > 0){
-            xspeed--;
-        }
-        else if(xspeed < 0){
-            xspeed--;
-        }
-        if(yspeed > 0){
-            yspeed--;
-        }
-        else if(yspeed < 0){
-            yspeed++;
-        }
-        
+       if(xspeed>0){
+           xspeed/=1.1;
+       }
+       else if(xspeed<0){
+           xspeed/=1.1;
+       }
+       else{
+           xspeed=0;
+       }
+       if(yspeed<0){
+           yspeed/=1.1;
+       }
+       else if(yspeed>0){
+           yspeed/=1.1;
+       }
+       else{
+           yspeed=0;
+       }
     }
 
     public void stop(){
@@ -94,7 +104,7 @@ class Ship extends SpaceObject
 
         }
         else if(getnX()<-getW()){
-            setX(w+getW());
+            setX(w);
 
 
         }

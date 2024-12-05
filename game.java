@@ -1,16 +1,24 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
+import java.util.TimerTask;
+import java.util.Timer;
 import javax.swing.*;
 
 class game extends JPanel implements Runnable, KeyListener
 {
 
 
+
+
     private boolean[] keys;
 
 
     private Ship testship;
+    private Asteroid testasteroid;
+    private TimerTask task;
+    private Timer timer;
+
 
 
 
@@ -21,11 +29,17 @@ class game extends JPanel implements Runnable, KeyListener
         int w=0;
         int h=0;
         setBackground(Color.WHITE);
-
+        keys = new boolean[6];		// scroll down to see the keyPressed method
         testship = new Ship(500, 500, 100,100, 0);
-
-        //make the keys array big enough to store all keys pressed
-        keys = new boolean[5];		// scroll down to see the keyPressed method
+        testasteroid = new Asteroid(100,100, 50, 50, 2, 2, 1);
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                testship.dampener();
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 100);
 
 
 
@@ -42,16 +56,22 @@ class game extends JPanel implements Runnable, KeyListener
         window.setColor(Color.BLACK); window.drawRect( 0,0, getWidth(), getHeight());
 
 
+
         window.setColor(Color.BLUE); // to change fonts, color, etc: go to the Graphics Intro Folder
 
 //        window.drawString("Mouse  coordinates " + "(" + MouseInfo.getPointerInfo().getLocation().x + "   " + MouseInfo.getPointerInfo().getLocation().y + ")", 250, 130 );
 
-        if(keys[0]) // space is pressed
+        if(keys[5]) // S is pressed
         {
             testship.goLeftRight();
             testship.goUpDown();
-            testship.dampener();
             testship.keepinBounds(getWidth(), getHeight());
+            testasteroid.goLeftRight();
+            testasteroid.goUpDown();
+            testasteroid.keepInBounds(getWidth(), getHeight());
+
+
+
 
 
 
@@ -77,12 +97,11 @@ class game extends JPanel implements Runnable, KeyListener
             }
             keys[3] = false;
         }
-        if(keys[4]){
+        if(keys[4]){ // Down Arrow
 
             keys[4] = false;
         }
-        ;
-
+        testasteroid.paint(window);
         testship.paint(window);
 
 
@@ -118,6 +137,9 @@ class game extends JPanel implements Runnable, KeyListener
         if( e.getKeyCode()  == KeyEvent.VK_DOWN )
         {
             keys[4]=true;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_S){
+            keys[5] = true;
         }
     }
     /*****~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*****/

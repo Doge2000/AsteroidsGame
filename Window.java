@@ -13,6 +13,7 @@ class Window extends JFrame
 
     public Window()
     {
+
         super("game");
 
         setSize(WIDTH,HEIGHT);
