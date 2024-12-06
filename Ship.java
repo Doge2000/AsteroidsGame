@@ -59,8 +59,8 @@ class Ship extends SpaceObject
 
     public void changespeed(){
 
-            double x = Math.cos(Math.toRadians(angle - 90)) * 0.5;
-            double y = Math.sin(Math.toRadians(angle - 90)) * 0.5;
+            double x = Math.cos(Math.toRadians(angle - 90)) * 0.25;
+            double y = Math.sin(Math.toRadians(angle - 90)) * 0.25;
             xspeed += x;
             yspeed += y;
             speed = Math.sqrt(Math.pow(xspeed, 2) + Math.pow(yspeed,2));
@@ -91,8 +91,8 @@ class Ship extends SpaceObject
     }
 
     public void stop(){
-        speed = 0;
-
+        xspeed = 0;
+        yspeed = 0;
     }
 
     public void keepinBounds(int w, int h){

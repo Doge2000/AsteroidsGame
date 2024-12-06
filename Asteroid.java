@@ -19,11 +19,16 @@ class Asteroid extends SpaceObject {
   {
     setX(getnX() + xspeed);
   }
+  public void stop(){
+    xspeed = 0;
+    yspeed = 0;
+  }
 
   public void goUpDown(){
     setY(getnY()+yspeed);
 
   }
+
   public void keepInBounds(int w, int h){
     if(getnX()>w){
       setX(-getW());

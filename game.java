@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
 import javax.swing.*;
@@ -16,6 +17,7 @@ class game extends JPanel implements Runnable, KeyListener
 
     private Ship testship;
     private Asteroid testasteroid;
+    private ArrayList<Asteroid> asteroids;
     private TimerTask task;
     private Timer timer;
 
@@ -24,14 +26,26 @@ class game extends JPanel implements Runnable, KeyListener
 
     public game() // create all instance in here
     {
-        int x=0;
-        int y=0;
-        int w=0;
-        int h=0;
         setBackground(Color.WHITE);
         keys = new boolean[6];		// scroll down to see the keyPressed method
         testship = new Ship(500, 500, 100,100, 0);
-        testasteroid = new Asteroid(100,100, 50, 50, 2, 2, 1);
+        testasteroid = new Asteroid(100,100, 50, 50, 1, 1, 1);
+        asteroids = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            Asteroid curr;
+            int x = (int)(Math.random()*(1000));
+            int y = (int)(Math.random()*(1000));
+            int ysp = 0;
+            int xsp =0 ;
+            while(ysp==0 || xsp==0) {
+                ysp = (int) (Math.random() * 5 - 2);
+                xsp = (int) (Math.random() * 4 - 2);
+            }
+
+
+            curr = new Asteroid(x, y, 50, 50, ysp, xsp, 1 );
+            asteroids.add(curr);
+        }
         timer = new Timer();
         task = new TimerTask() {
             @Override
@@ -40,6 +54,7 @@ class game extends JPanel implements Runnable, KeyListener
             }
         };
         timer.scheduleAtFixedRate(task, 0, 100);
+
 
 
 
@@ -54,6 +69,9 @@ class game extends JPanel implements Runnable, KeyListener
     {
         window.setColor(Color.BLACK); window.fillRect( 0,0, getWidth(), getHeight());
         window.setColor(Color.BLACK); window.drawRect( 0,0, getWidth(), getHeight());
+        Font font = new Font("test", 0, 100);
+
+
 
 
 
@@ -69,6 +87,13 @@ class game extends JPanel implements Runnable, KeyListener
             testasteroid.goLeftRight();
             testasteroid.goUpDown();
             testasteroid.keepInBounds(getWidth(), getHeight());
+            for (int i = 0; i < asteroids.size(); i++) {
+                asteroids.get(i).goLeftRight();
+                asteroids.get(i).goUpDown();
+                asteroids.get(i).keepInBounds(getWidth(), getHeight());
+            }
+
+
 
 
 
@@ -76,6 +101,7 @@ class game extends JPanel implements Runnable, KeyListener
 
 
         }
+
 
 
         if(keys[1]) // Left Arrow is pressed
@@ -102,7 +128,12 @@ class game extends JPanel implements Runnable, KeyListener
             keys[4] = false;
         }
         testasteroid.paint(window);
+        for (int i = 0; i < asteroids.size(); i++) {
+            asteroids.get(i).paint(window);
+
+        }
         testship.paint(window);
+
 
 
 
