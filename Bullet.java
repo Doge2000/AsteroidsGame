@@ -1,7 +1,7 @@
 import java.awt.*;
 
 class Bullet extends SpaceObject{
-    private double speed;
+//    private double speed;
     private double xspeed;
     private double yspeed;
 
@@ -10,26 +10,26 @@ class Bullet extends SpaceObject{
 
 
 
-    public Bullet( int ex, int wy, int sp)
+    public Bullet( int ex, int wy, double xsp, double ysp)
     {
-        super(ex,wy,4,4);
-        speed = sp;
-        xspeed = 0;
-        yspeed = 0;
+        super(ex,wy,5,5);
+//        speed = xsp;
+
+        xspeed = xsp;
+        yspeed = ysp;
 
 
     }
-//    public void shoot(Ship ship, Graphics window){
-//        double x = Math.cos(Math.toRadians(ship.getAngle() - 90)) * 0.25;
-//        double y = Math.sin(Math.toRadians(ship.getAngle() - 90)) * 0.25;
-//        xspeed = x+5;
-//        yspeed = y+5;
-//        this.setX(ship.getnX()-10);
-//        this.setY(ship.getnY()-10);
-//        speed = Math.sqrt(Math.pow(xspeed, 2) + Math.pow(yspeed,2));
-//
-//
-//    }
+    public void shoot(Ship ship, Graphics window){
+        double x = Math.cos(Math.toRadians(ship.getAngle())) * 0.25;
+        double y = Math.sin(Math.toRadians(ship.getAngle())) * 0.25;
+        xspeed = x+5;
+        yspeed = y+5;
+        this.paint(window);
+
+
+
+    }
     public void goLeftRight()
     {
         setX(getnX() + xspeed);
