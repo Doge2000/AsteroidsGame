@@ -93,8 +93,19 @@ class game extends JPanel implements Runnable, KeyListener
                 asteroids.get(i).keepInBounds(getWidth(), getHeight());
             }
 
-
-
+            for(int i = bullets.size()-1; i >= 0; i--){
+                for(int x = asteroids.size(); x >= 0; x--){
+                    if(bullets.get(i).intersects(asteroids.get(x))){
+                        bullets.remove(i);
+                        asteroids.remove(i);
+                    }
+                }
+            }
+            for(int i = 0; i < asteroids.size(); i++){
+                if(testship.intersects(asteroids.get(i))){
+                    keys[5] = false;
+                }
+            } 
 
 
 
