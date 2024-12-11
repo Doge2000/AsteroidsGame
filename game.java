@@ -20,6 +20,7 @@ class game extends JPanel implements Runnable, KeyListener
     private ArrayList<Asteroid> asteroids;
     private TimerTask task;
     private Timer timer;
+    private ArrayList<Bullet> bullets;
 
 
 
@@ -31,6 +32,7 @@ class game extends JPanel implements Runnable, KeyListener
         testship = new Ship(500, 500, 100,100, 0);
         testasteroid = new Asteroid(100,100, 50, 50, 1, 1, 1);
         asteroids = new ArrayList<>();
+        bullets = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             Asteroid curr;
             int x = (int)(Math.random()*(1000));
@@ -112,7 +114,11 @@ class game extends JPanel implements Runnable, KeyListener
 
 
         }
-
+         if(keys[0]){
+             bullets.add(new Bullet(testship.getnX(),testship.getnY(),0,0));
+             bullets.get(bullets.size()).shoot(testship, window);
+             keys[0] = false;
+         }
 
 
         if(keys[1]) // Left Arrow is pressed
@@ -134,7 +140,7 @@ class game extends JPanel implements Runnable, KeyListener
             }
             keys[3] = false;
         }
-        if(keys[4]){ // Down Arrow
+        if(keys[4]){ // Spacebar
 
             keys[4] = false;
         }
