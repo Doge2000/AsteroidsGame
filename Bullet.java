@@ -10,7 +10,7 @@ class Bullet extends SpaceObject{
 
 
 
-    public Bullet( int ex, int wy, double xsp, double ysp)
+    public Bullet( double ex, double wy, double xsp, double ysp)
     {
         super(ex,wy,5,5);
 //        speed = xsp;

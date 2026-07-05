@@ -95,6 +95,10 @@ class Ship extends SpaceObject
         yspeed = 0;
     }
 
+    public double getAngle(){
+        return angle;
+    }
+
     public void keepinBounds(int w, int h){
 
 
@@ -132,7 +136,7 @@ class Ship extends SpaceObject
         //find and image for your paddle and put it here
         Graphics2D g2 = (Graphics2D) window;
         g2.rotate(Math.toRadians(angle), getnX()+getW()/2, getnY()+getH()/2);
-        Image img1 = Toolkit.getDefaultToolkit().getImage("ship.gif"); //use .gif or .png, you can choose the image
+        Image img1 = Toolkit.getDefaultToolkit().getImage("ship.png"); //use .gif or .png, you can choose the image
         g2.drawImage(img1, (int) getnX(), (int) getnY(), getW(), getH(), this);
 
     }

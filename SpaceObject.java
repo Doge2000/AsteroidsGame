@@ -22,7 +22,7 @@ abstract class SpaceObject extends Canvas
 
     }
 
-    public SpaceObject( int ex, int wy, int wd, int ht)
+    public SpaceObject( double ex, double wy, int wd, int ht)
     {
         x = ex;
         y = wy;

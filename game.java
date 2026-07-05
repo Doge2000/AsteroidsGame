@@ -95,14 +95,6 @@ class game extends JPanel implements Runnable, KeyListener
                 asteroids.get(i).keepInBounds(getWidth(), getHeight());
             }
 
-            for(int i = bullets.size()-1; i >= 0; i--){
-                for(int x = asteroids.size(); x >= 0; x--){
-                    if(bullets.get(i).intersects(asteroids.get(x))){
-                        bullets.remove(i);
-                        asteroids.remove(i);
-                    }
-                }
-            }
             for(int i = 0; i < asteroids.size(); i++){
                 if(testship.intersects(asteroids.get(i))){
                     keys[5] = false;
@@ -116,7 +108,7 @@ class game extends JPanel implements Runnable, KeyListener
         }
          if(keys[0]){
              bullets.add(new Bullet(testship.getnX(),testship.getnY(),0,0));
-             bullets.get(bullets.size()).shoot(testship, window);
+             bullets.get(bullets.size()-1).shoot(testship, window);
              keys[0] = false;
          }
 
@@ -150,6 +142,25 @@ class game extends JPanel implements Runnable, KeyListener
 
         }
         testship.paint(window);
+
+        // Update and draw bullets
+        for(int i = 0; i < bullets.size(); i++){
+            bullets.get(i).goLeftRight();
+            bullets.get(i).goUpDown();
+            bullets.get(i).keepinBounds(getWidth(), getHeight());
+            bullets.get(i).paint(window);
+        }
+
+        // Bullet-asteroid collision detection (happens every frame)
+        for(int i = bullets.size()-1; i >= 0; i--){
+            for(int x = asteroids.size()-1; x >= 0; x--){
+                if(bullets.get(i).intersects(asteroids.get(x))){
+                    bullets.remove(i);
+                    asteroids.remove(x);
+                    break; // Break inner loop after removing asteroid to avoid checking other asteroids with same bullet
+                }
+            }
+        }
 
 
 
